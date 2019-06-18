@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.luobox{
+				width: 1226px;
+				height: 460px;
+			 
+				margin: 0 auto;
+				position: relative;
+			}
+			.luobox img{
+				width: 1226px;			 
+				position: absolute;
+			}
+			 
+			.bon_ul ul{
+				width: 180px;
+				height: 20px;	
+				z-index: 30;					 
+				margin:0 auto;	
+				position: absolute;
+				left: 1100px;
+				 top: 450px; 
+				 display: flex;
+				 justify-content: space-around;				 				 
+			}
+			.bon_ul ul li{
+				float: left;
+				list-style: none;
+				width: 15px;
+				height: 15px;
+				border: 5px solid #000;
+				border-radius: 15px;	
+				 	 
+			}
+			.bon_ul .btnred{
+				background: red;
+			}
+			.bon_ul h4{
+				width: 50px;
+				height: 100px;
+				background: red;		
+				font-size: 50px;
+				align-content: center;
+				line-height: 100px;			
+				color: #FFFFFF; 	
+				cursor: pointer;			 
+			}
+			.leftH4{
+				position: absolute;
+				left: 93px;top: -350px;
+				z-index: 100;
+			} 
+			.rightH4{
+				position: absolute;
+				right: 240px;top: 180px;
+				z-index: 100;
+			} 
+		</style>
+	</head>
+	<body>
+		<div class="luobox">			 
+			<h2>
+				<img style="z-index: 6; "src="img/xmad6.jpg"/>
+				<img style="z-index: 5; "src="img/xmad5.jpg"/>
+				<img style="z-index: 4; "src="img/xmad4.jpg"/>
+				<img style="z-index: 3; "src="img/xmad3.jpg"/>
+				<img style="z-index: 2; "src="img/xmad2.jpg"/>
+				<img style="z-index: 1; "src="img/xmad1.jpg"/>
+			</h2>
+				<div class="bon_ul">
+			<ul>
+				<li class="btnred"></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>		<h4 class="leftH4"><</h4>
+			<h4 class="rightH4">&nbsp;></h4> 
+			</ul>
+			
+		</div>
+		</div>
+	
+		    
+	</body>
+</html>
+<script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+<script type="text/javascript">
+	let index = 0;
+	let timer = null;
+	let $sdImg = $(".luobox img");
+	let $olist = $(".bon_ul ul li");
+	let $maxbox = $(".luobox");
+	 
+	let $leth4 = $(".bon_ul .leftH4");
+	let $righ4 = $(".bon_ul .rightH4")
+	timer = setInterval(autoPlay , 3000);
+	function autoPlay(){
+		index++;
+		if(index == $sdImg.size()){
+			index = 0;
+		}
+		$olist.eq(index).addClass("btnred").siblings().removeClass("btnred");
+		$sdImg.eq(index).fadeIn(1000).siblings().fadeOut(1000);
+	}
+	
+	function autoPlays(){		
+		if(index == $sdImg.size() - 1){
+			index = 0;
+		}else{
+			index--;
+		}		 
+		$olist.eq(index).addClass("btnred").siblings().removeClass("btnred");
+		$sdImg.eq(index).fadeIn(1000).siblings().fadeOut(1000);
+	}
+	
+	$maxbox.mouseover(function(){
+		clearInterval(timer);
+	})
+	$maxbox.mouseout(function(){
+		timer = setInterval(autoPlay , 3000);
+	})
+		 
+	$righ4.click(function(){
+		clearInterval(timer);
+		autoPlay();
+	})
+	 
+	$leth4.click(function(){
+		clearInterval(timer);
+		autoPlays();
+	})
+	
+	 $olist.mouseover(function(){
+	    var inde=$(this).index();	 	 
+	 	clearInterval(timer);
+		$olist.eq(inde).addClass("btnred").siblings().removeClass("btnred");
+		$sdImg.eq(inde).fadeIn(1000).siblings().fadeOut(1000);
+	})
+</script>

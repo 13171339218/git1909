@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .show {
+            width: 800px;
+            height: 300px;
+            background: orange;
+            margin: 50px auto;
+            position: relative;
+        }
+
+        .imgBox {
+            width: 800px;
+            height: 300px;
+            position: relative;
+        }
+
+        .imgBox img {
+            width: 800px;
+            height: 300px;
+            display: block;
+            position: absolute;
+            opacity: 0;
+            filter: alpha(opacity=0)
+        }
+
+        .show span {
+            display: block;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(200, 0, 0, 0.5);
+            text-align: center;
+            line-height: 42px;
+            font-size: 45px;
+            font-weight: 900;
+            position: absolute;
+            top: 125px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .show span:nth-of-type(1) {
+            left: 20px;
+        }
+
+        .show span:nth-of-type(2) {
+            right: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <section class="show">
+        <div class="imgBox">
+            <img src="img/1.jpg" alt="">
+            <img src="img/2.jpg" alt="">
+            <img src="img/3.jpg" alt="">
+            <img src="img/4.jpg" alt="">
+            <img src="img/5.jpg" alt="">
+        </div>
+        <span>
+            <</span> <span>>
+        </span>
+    </section>
+</body>
+
+</html>
+<script src="../iApi/move.js"></script>
+<script>
+    var
+        oShow = document.querySelector('.show'),
+        aImg = document.querySelectorAll('.imgBox img'),
+        aSpan = document.querySelectorAll('.show span');
+    aImg[0].style.opacity = '1';
+    aImg[0].style.filter = 'alpha(opacity=100)';
+    var count = 0;
+    var timer = 0;
+    //图片显示
+    function imgShow(img) {
+        for (var i = 0; i < aImg.length; i++) {
+            aImg[i].style.opacity = 0;
+            aImg[i].style.filter = 'alpha(opacity=0)';
+        }
+        move(img, {
+            'opacity': 100
+        });
+    }
+
+    //nextImg
+    function nextImg() {
+        if (count >= aImg.length - 1) {
+            count = 0;
+        } else {
+            count++;
+        }
+        imgShow(aImg[count]);
+    }
+    //preImg
+    function preImg() {
+        if (count <= 0) {
+            count = aImg.length - 1;
+        } else {
+            count--;
+        }
+        imgShow(aImg[count]);
+    }
+
+    aSpan[1].onclick = function () {
+        nextImg()
+    }
+    aSpan[0].onclick = function () {
+        preImg();
+    }
+
+
+    function autoPlay() {
+        timer = setInterval(() => {
+            nextImg()
+        }, 1000)
+    }
+    autoPlay();
+    //鼠标移入定时器关闭
+    oShow.onmouseover = function () {
+        clearInterval(timer);
+    }
+    //鼠标移入时定时器打开
+    oShow.onmouseout = function () {
+        autoPlay();
+    }
+</script>
